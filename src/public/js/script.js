@@ -84,3 +84,44 @@ function switchToRegister() {
 }
 
 /*----------------------------------------*/
+<script>
+    async function updateCartCount() {
+        try {
+            const response = await fetch('/cart/count');
+            const data = await response.json();
+
+            // Tìm và cập nhật số lượng sản phẩm
+            const cartCountElement = document.querySelector('.cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = data.totalItems || 0;
+            }
+        } catch (error) {
+            console.error('Error updating cart count:', error);
+        }
+    }
+
+    // Gọi hàm cập nhật ngay khi trang tải xong
+    document.addEventListener('DOMContentLoaded', updateCartCount);
+
+    // Gọi hàm mỗi khi thực hiện thay đổi giỏ hàng (nút update hoặc delete)
+    document.querySelectorAll('.update-form, .delete-form').forEach(form => {
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const action = this.action;
+
+            try {
+                // Gửi yêu cầu đến server
+                await fetch(action, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                // Cập nhật số lượng giỏ hàng
+                updateCartCount();
+            } catch (error) {
+                console.error('Error updating cart:', error);
+            }
+        });
+    });
+</script>

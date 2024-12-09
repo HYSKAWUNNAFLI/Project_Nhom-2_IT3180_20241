@@ -12,7 +12,7 @@
                 Price: ${{this.product_price}}
             </div>
             <div class="product-footer">
-                <a href="/products/{{this.product_id}}" class="btn">View Details</a>
+                <a href="/viewdetail/{{this.product_id}}" class="btn">View Details</a>
             </div>
         </div>
         {{/each}}
@@ -34,7 +34,7 @@
     <a href="/product?page={{currentPagePlus1}}" class="page-link">›</a>
     {{/if}}
 </div>
-
+</div>
 <style>
     .pagination {
         display: flex;

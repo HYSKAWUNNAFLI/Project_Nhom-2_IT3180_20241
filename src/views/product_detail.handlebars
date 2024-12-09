@@ -1,0 +1,65 @@
+<div class="small-container single-product">
+    <div class="row">
+        <!-- Hình ảnh sản phẩm -->
+        <div class="col-2">
+            <img src="{{product.product_image}}" width="100%" id="productImg" alt="{{product.product_title}}">
+        </div>
+
+        <!-- Thông tin sản phẩm -->
+        <div class="col-2">
+            <a href="/" class="btn">Home</a>
+            <h1>{{product.product_title}}</h1>
+            <h4>${{product.product_price}}</h4>
+
+            <!-- Form chọn kích cỡ và số lượng -->
+            <form action="/viewdetail/add-to-cart" method="POST" class="cart-form">
+                <input type="hidden" name="product_id" value="{{product.product_id}}">
+                
+                <!-- Chọn kích cỡ -->
+                <div class="form-group">
+                    <label for="size">Select Size:</label>
+                    <select name="size" id="size" required>
+                        <option value="" disabled selected>Choose Size</option>
+                        <option value="XXL">XXL</option>
+                        <option value="XL">XL</option>
+                        <option value="L">Large</option>
+                        <option value="M">Medium</option>
+                        <option value="S">Small</option>
+                    </select>
+                </div>
+
+                <!-- Chọn số lượng -->
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" name="quantity" value="1" min="1" required>
+                </div>
+
+                <!-- Nút thêm vào giỏ hàng -->
+                <button type="submit" class="btn">Add To Cart</button>
+            </form>
+
+            <!-- Mô tả sản phẩm -->
+            <h3>Product Detail <i class="fa fa-indent"></i></h3>
+            <p>{{product.product_desc}}</p>
+
+            <!-- Bảng hiển thị chi tiết bổ sung -->
+            <div class="additional-info">
+                <h3>Additional Information</h3>
+                <table>
+                    <tr>
+                        <td>Brand</td>
+                        <td>{{product.brand}}</td>
+                    </tr>
+                    <tr>
+                        <td>Category</td>
+                        <td>{{product.category}}</td>
+                    </tr>
+                    <tr>
+                        <td>Keywords</td>
+                        <td>{{product.product_keywords}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -149,7 +149,7 @@ body {
 
 
 #header .logo {
-    width: 80px;
+    width: 50px;
     /* Giữ logo kích thước cố định */
 }
 
@@ -176,6 +176,16 @@ body {
     font-size: 16px;
     font-weight: 600;
     color: #fff;
+    transition: color 0.3s ease;
+    padding: 10px 15px;
+    /* Tạo vùng click lớn hơn */
+}
+
+.nav-option-1 { /* brand's color */
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #78848c;
     transition: color 0.3s ease;
     padding: 10px 15px;
     /* Tạo vùng click lớn hơn */
@@ -263,7 +273,7 @@ body {
     position: absolute;
     top: 127px;
     /* Khoảng cách từ đầu màn hình xuống */
-    left: 50%;
+    left: 51%;
     transform: translateX(-50%);
     /* Căn giữa menu con */
     background-color: #fff;
@@ -418,7 +428,7 @@ a {
 }
 
 p {
-    color: #555;
+    color: #a4a0a0;
 }
 
 .container {
@@ -455,7 +465,7 @@ p {
 .btn {
     display: inline-block;
     background: #ffffff;
-    color: #fff;
+    color: #000000;
     padding: 8px 30px;
     margin: 30px 0;
     border-radius: 30px;
@@ -637,13 +647,18 @@ footer {
     text-align: center;
     margin: 0 auto 80px;
     position: relative;
-    line-height: 60px;
-    color: #555;
+    line-height: 80px; /* Tăng khoảng cách dòng */
+    color: #c6f2f7;
+    font-size: 40px; /* Tăng kích thước chữ */
+    font-weight: bold; /* Làm chữ đậm */
+    text-transform: uppercase; /* Chuyển chữ thành chữ in hoa */
+    letter-spacing: 2px; /* Tăng khoảng cách giữa các chữ cái */
 }
+
 
 .title::after {
     content: '';
-    background: #ff523b;
+    background: #ffffff;
     width: 80px;
     height: 5px;
     border-radius: 5px;
@@ -654,7 +669,7 @@ footer {
 }
 
 h4 {
-    color: #555;
+    color: #69b3db;
     font-weight: normal;
 }
 
@@ -772,8 +787,16 @@ small {
 }
 
 .footer-col-1 {
-    flex-basis: 30%;
+    flex-basis: 10%; /* Kích thước phần */
+    text-align: center;
+    border: 2px solid #000; /* Thêm viền màu đen */
+    padding: 10px; /* Thêm khoảng cách bên trong */
+    margin: -64px 20px 10px 10px; /* Căn giữa và thu nhỏ khoảng cách */
+    box-sizing: border-box; /* Đảm bảo viền không làm thay đổi kích thước */
+    border-radius: 8px; /* Bo góc viền */
+    max-width: 150px; /* Giới hạn chiều rộng tối đa */
 }
+
 
 .footer-col-2 {
     flex: 1;
@@ -893,17 +916,24 @@ select:focus {
 
 /* -- ---------- single Products detail ----------- -- */
 .single-product {
-    margin-top: 80px;
-
+    margin-top: 50px;
+    border: 2px solid #000; /* Đường viền màu đen dày 2px */
+    padding: 20px; /* Thêm khoảng cách giữa viền và nội dung */
+    border-radius: 25px; /* Tùy chọn: Bo tròn các góc (nếu muốn) */
+    background-color: #101010; /* Tùy chọn: Thêm màu nền để nổi bật */
+    margin-bottom: 50px;
 }
 
 .single-product .col-2 img {
     padding: 0;
+    border: 1px solid #020202; /* Thêm viền đen xung quanh ảnh */
+    border-radius: 25px; /* Bo tròn góc ảnh (nếu cần) */
 }
 
 .single-product .col-2 {
     padding: 20px;
 }
+
 
 .single-product h4 {
     margin: 20px 0;
@@ -923,7 +953,7 @@ select:focus {
     padding-left: 10px;
     font-size: 20px;
     margin-right: 10px;
-    border: 1px solid #ff523f;
+    border-radius: 20px;
 }
 
 input:focus {
@@ -1474,3 +1504,53 @@ button:hover {
         /* 1 column per row */
     }
 }
+
+/*product_detail.handlebars*/
+
+    .small-container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .col-2 {
+        flex: 0 0 48%;
+    }
+
+    .btn {
+        background: #ff523b;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    select, input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table tr td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
