@@ -79,60 +79,57 @@ module.exports.deleteProduct = async (req, res) => {
 
 
 
-module.exports.getCartItemCount = async (req, res, next) => {
-    try {
-        let ipAddress = req.ip === '::1' ? '127.0.0.1' : req.ip;
-
-        const query = `
-            SELECT COUNT(id) AS total_items 
-            FROM cart 
-            WHERE ip_add = $1
-        `;
-        const result = await db.query(query, [ipAddress]);
-
-        res.locals.cartItemCount = result.rows[0].total_items || 0; // Đảm bảo chỉ truyền `cartItemCount`
-        next();
-    } catch (error) {
-        console.error('Error fetching cart item count:', error);
-        res.locals.cartItemCount = 0;
-        next();
-    }
-};
 
 
 module.exports.showCheckout = async (req, res) => {
     try {
-        const ipAddress = req.ip === '::1' ? '127.0.0.1' : req.ip;
+        // Xác định địa chỉ IP
+        const ipAddress = req.ip;
 
+        // Truy vấn cơ sở dữ liệu để lấy thông tin chi tiết giỏ hàng
         const query = `
             SELECT 
-                SUM(c.qty) AS prod_count,
-                SUM(p.product_price * c.qty) AS total_amt
-            FROM cart c
-            JOIN products p ON c.p_id = p.product_id
-            WHERE c.ip_add = $1
+                c.id AS cart_id, 
+                c.qty AS quantity, 
+                p.product_id, 
+                p.product_title, 
+                p.product_price, 
+                p.product_image, 
+                (c.qty * p.product_price) AS total_price
+            FROM 
+                cart c
+            JOIN 
+                products p ON c.p_id = p.product_id
+            WHERE 
+                c.ip_add = $1
         `;
 
-        const result = await db.query(query, [ipAddress]);
+        // Lấy dữ liệu giỏ hàng từ cơ sở dữ liệu
+        const cartItems = await db.query(query, [ipAddress]);
 
-        console.log("Data from DB:", result.rows); // Log toàn bộ kết quả
+        // Tính tổng số lượng sản phẩm và tổng tiền
+        const prod_count = cartItems.rows.reduce((sum, item) => sum + item.quantity, 0);
+        const total_amt = cartItems.rows.reduce((sum, item) => sum + item.total_price, 0);
 
-        const prod_count = result.rows[0].prod_count || 0;
-        const total_amt = result.rows[0].total_amt || 0;
+        // Ghi log để kiểm tra
+        console.log("Checkout Data:", {
+            prod_count,
+            total_amt
+        });
 
-        console.log("Product Count:", prod_count); // Log thêm từng giá trị
-        console.log("Total Amount:", total_amt);
-
+        // Truyền dữ liệu tới giao diện checkout
         res.render('checkout', {
             title: 'Checkout',
-            prod_count,
-            totalAmount: total_amt,
+            prod_count, // Tổng số lượng sản phẩm
+            totalAmount: total_amt // Tổng số tiền
         });
     } catch (error) {
-        console.error('Error fetching cart summary:', error);
+        // Xử lý lỗi
+        console.error('Error fetching checkout data:', error);
         res.status(500).send('Internal Server Error');
     }
 };
+
 // cartController.js
 module.exports.showThankYouPage = async (req, res) => {
     try {

@@ -35,9 +35,30 @@ const attachUserToLocals = (req, res, next) => {
     next();
 };
 
+const authenticator_for_checkout = (req, res, next) => {
+    const token = req.cookies?.auth_token || req.session?.user;
+
+    if (!token) {
+        return res.redirect('/account'); // Chuyển hướng đến trang đăng nhập
+    }
+
+    try {
+        if (req.cookies?.auth_token) {
+            const decoded = jwt.verify(token, SECRET_KEY);
+            req.user = decoded; // Gắn thông tin người dùng vào req
+        } else {
+            req.user = req.session.user; // Lấy thông tin từ session
+        }
+        next(); // Cho phép tiếp tục nếu đã đăng nhập
+    } catch (error) {
+        console.error("Authentication error:", error);
+        res.redirect('/account');
+    }
+};
 // Export all middlewares
 module.exports = {
     authenticator,
     authorize,
     attachUserToLocals,
+    authenticator_for_checkout,
 };

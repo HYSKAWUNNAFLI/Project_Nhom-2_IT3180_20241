@@ -48,7 +48,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 const db = require('./models/db');
 db.connect();
 
-// Import routes
 const productRouters = require('./routes/productRouters');
 app.use('/product', productRouters);
 

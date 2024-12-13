@@ -47,16 +47,9 @@
             <div class="additional-info">
                 <h3>Additional Information</h3>
                 <table>
+                    
                     <tr>
-                        <td>Brand</td>
-                        <td>{{product.brand}}</td>
-                    </tr>
-                    <tr>
-                        <td>Category</td>
-                        <td>{{product.category}}</td>
-                    </tr>
-                    <tr>
-                        <td>Keywords</td>
+                        <td>Description</td>
                         <td>{{product.product_keywords}}</td>
                     </tr>
                 </table>
@@ -64,3 +57,41 @@
         </div>
     </div>
 </div>
+
+<style>/* Định dạng chữ trong phần Description */
+.additional-info table tr td:last-child {
+    color: #a4a0a0; /* Đổi màu chữ */
+    text-align: left; /* Căn trái chữ */
+    vertical-align: top; /* Căn dòng chữ thẳng hàng trên cùng */
+}
+
+/* Căn bảng thẳng hàng với tiêu đề "Product Detail" */
+.additional-info {
+    margin-top: 20px; /* Khoảng cách phía trên bảng */
+    padding-left: 0px; /* Căn lề trái bảng phù hợp */
+}
+
+/* Định dạng tiêu đề "Additional Information" */
+.additional-info h3 {
+    font-size: 1.2rem;
+    color: white; /* Màu chữ của tiêu đề */
+    margin-bottom: 10px;
+}
+
+/* Tinh chỉnh bảng */
+.additional-info table {
+    margin-left: 0; /* Căn bảng sát bên trái */
+    border-spacing: 0; /* Loại bỏ khoảng cách giữa các ô */
+}
+
+.additional-info table tr td {
+    padding: 10px; /* Khoảng cách bên trong ô */
+    border: 1px solid #ddd; /* Viền mỏng xung quanh */
+}
+
+.additional-info table tr td:first-child {
+    font-weight: bold; /* Làm đậm cột đầu tiên */
+    color: white; /* Màu chữ của cột đầu tiên */
+}
+
+</style>

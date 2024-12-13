@@ -104,26 +104,23 @@ async function updateCartCount() {
 document.addEventListener('DOMContentLoaded', updateCartCount);
 
 // Gọi hàm mỗi khi thực hiện thay đổi giỏ hàng (nút update hoặc delete)
-document.querySelectorAll('.update-form, .delete-form').forEach(form => {
+document.querySelectorAll('.update-form').forEach(form => {
     form.addEventListener('submit', async function (e) {
-        e.preventDefault();
+        // Tạm thời bỏ e.preventDefault();
         const formData = new FormData(this);
         const action = this.action;
 
         try {
-            // Gửi yêu cầu đến server
             await fetch(action, {
                 method: 'POST',
                 body: formData,
             });
-
-            // Cập nhật số lượng giỏ hàng
-            updateCartCount();
         } catch (error) {
             console.error('Error updating cart:', error);
         }
     });
 });
+
 
 
 /*-------------------------Search-box-----------------------*/
